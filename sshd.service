@@ -1,0 +1,11 @@
+[Unit]
+Description=OpenSSH Daemon
+
+[Service]
+EnvironmentFile=/etc/sysconfig/ssh
+ExecStartPre=/usr/sbin/sshd-gen-keys-start
+ExecStart=/usr/sbin/sshd -D $SSHD_OPTS
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=always
+
