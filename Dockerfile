@@ -1,4 +1,5 @@
 FROM hachque/opensuse
+MAINTAINER James Rhodes
 
 # Configure zypper
 RUN zypper mr -e openSUSE_13.1_OSS
@@ -38,3 +39,5 @@ RUN ln -s /run /var/run
 # Link /init to systemd
 RUN ln -s /bin/systemd /init
 
+# Set /init as the default
+CMD ["/init"]
