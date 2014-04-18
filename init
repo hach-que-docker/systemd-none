@@ -3,7 +3,7 @@
 rm -Rf /run/watch
 mkdir /run/watch
 
-for i in /etc/init.d/*; do
+for i in /etc/init.simple/*; do
   echo "[ STARTING ] $i"
   $i
   if [ $? -ne 0 ]; then
