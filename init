@@ -17,14 +17,13 @@ echo ""
 
 for i in /run/watch/*; do
   pid=$(cat $i)
-  name=$(cat /proc/$pid)
+  name=$(cat /proc/$pid/cmdline)
   echo " - $i ($pid) $name"
 done
 
 echo ""
 
-running="true"
-while [ $running -eq "true" ]; do
+while [ 0 -eq 0 ]; do
   for i in /run/watch/*; do
     pid=$(cat $i)
 
