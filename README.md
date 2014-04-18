@@ -1,9 +1,6 @@
 To run this image:
 
-    docker run 
-      -d \
-      -P \
-      <image>
+    docker run -d -P <image>
       
 What do these parameters do?
 
