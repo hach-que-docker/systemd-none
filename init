@@ -1,0 +1,38 @@
+#!/bin/bash
+
+rm -Rf /run/watch
+mkdir /run/watch
+
+for i in /etc/init.d/*; do
+  echo "[ STARTING ] $i"
+  $i
+  if [ $? -ne 0 ]; then
+    echo "[ FAILED ] $i"
+    exit 1
+  fi
+done
+
+echo "Supervising watch list: "
+echo ""
+
+for i in /run/watch/*; do
+  pid=$(cat $i)
+  name=$(cat /proc/$pid)
+  echo " - $i ($pid) $name"
+done
+
+echo ""
+
+running="true"
+while [ $running -eq "true" ]; do
+  for i in /run/watch/*; do
+    pid=$(cat $i)
+
+    if [ ! -e /proc/$pid ]; then
+      echo "[ EXITED ] $i"
+      exit 1
+    fi
+  done
+
+  sleep 1
+done

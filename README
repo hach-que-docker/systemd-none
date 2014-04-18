@@ -3,17 +3,15 @@ To run this image:
 ```
 docker run 
   -d \
-  --privileged \
   -P \
-  -v /sys/fs/cgroup:/sys/fs/cgroup \
   <image>
 ```
 
 ```
 -d = detach from tty
---privileged = allow capabilities, dbus requires this to lower permissions
 -P = map exposed ports over NAT
--v = map cgroups, systemd requires this to function
 <image> = the name of the image
-/init = start systemd
+/init = start simple init
 ```
+
+You can use this image to run application if you don't want to use cgroups or privileged mode.

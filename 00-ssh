@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Load config
+. /etc/sysconfig/ssh
+
+# Generate keys
+/usr/sbin/sshd-gen-keys-start
+
+# Run SSHD
+/usr/sbin/sshd $SSHD_OPTS
+
+# Wait for /run/sshd.pid to appear and copy it.
+while [ ! -e /run/sshd.pid ]; do
+  echo "Waiting for /run/sshd.pid to appear..."
+  sleep 1
+done
+cp /run/sshd.pid /run/watch/sshd
+
