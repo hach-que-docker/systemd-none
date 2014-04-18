@@ -1,3 +1,6 @@
+Usage
+----------
+
 To run this image:
 
     docker run -d -P <image>
@@ -9,3 +12,11 @@ What do these parameters do?
     <image> = the name of the image
 
 You can use this image to run applications if you don't want to use cgroups or privileged mode.
+
+SSH / Login
+--------------
+
+**Username:** root
+
+**Password:** linux
+
