@@ -38,14 +38,14 @@ done
 
 echo ""
 
-while [ -e /run/watch/* ]; do
+while [ "$(ls -A /run/watch)" ]; do
   for i in /run/watch/*; do
     pid=$(cat $i)
 
     if [ ! -e /proc/$pid ]; then
       echo "[ EXITED ] $i"
       rm $i
-      if [ -e /run/watch/* ]; then
+      if [ "$(ls -A /run/watch)" ]; then
         stop_container
       fi
     fi
