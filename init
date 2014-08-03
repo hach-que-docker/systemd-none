@@ -1,5 +1,20 @@
 #!/bin/bash
 
+function stop_container() {
+  echo "Sending SIGTERM to the following processes:"
+  echo ""
+  for i in /run/watch/*; do
+    pid=$(cat $i)
+    name=$(cat /proc/$pid/cmdline)
+    echo " - $i ($pid) $name"
+    kill -TERM $pid
+  done
+  echo ""
+}
+
+trap stop_container SIGTERM
+trap stop_container SIGINT
+
 rm -Rf /run/watch
 mkdir /run/watch
 
@@ -23,13 +38,16 @@ done
 
 echo ""
 
-while [ 0 -eq 0 ]; do
+while [ -e /run/watch/* ]; do
   for i in /run/watch/*; do
     pid=$(cat $i)
 
     if [ ! -e /proc/$pid ]; then
       echo "[ EXITED ] $i"
-      exit 1
+      rm $i
+      if [ -e /run/watch/* ]; then
+        stop_container
+      fi
     fi
   done
 
