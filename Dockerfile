@@ -5,8 +5,8 @@ MAINTAINER James Rhodes
 RUN zypper mr -e openSUSE_13.1_OSS
 RUN zypper mr -e openSUSE_13.1_Updates
 RUN zypper ref
-RUN zypper --non-interactive patch
-RUN zypper --non-interactive patch
+RUN bash -c 'zypper --non-interactive patch || true'
+RUN bash -c 'zypper --non-interactive patch || true'
 
 # Remove systemd targets
 RUN rm -R /usr/lib/systemd/system/* 2>/dev/null
