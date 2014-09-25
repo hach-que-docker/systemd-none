@@ -5,7 +5,8 @@ MAINTAINER James Rhodes
 RUN zypper mr -e openSUSE_13.1_OSS
 RUN zypper mr -e openSUSE_13.1_Updates
 RUN zypper ref
-RUN zypper --non-interactive up
+RUN zypper --non-interactive patch
+RUN zypper --non-interactive patch
 
 # Remove systemd targets
 RUN rm -R /usr/lib/systemd/system/* 2>/dev/null
@@ -13,8 +14,9 @@ RUN rm -R /usr/lib/systemd/system-generators/* 2>/dev/null
 RUN rm -R /etc/systemd/system/* 2>/dev/null
 RUN rm -R /etc/init.d/* 2>/dev/null
 
-# Add the SSH boot script
-ADD 00-ssh /etc/init.simple/00-ssh
+# Add the boot scripts
+ADD 00-patch /etc/init.simple/00-patch
+ADD 01-ssh /etc/init.simple/01-ssh
 
 # Allow logins without audit kernel module.
 RUN sed -r -n -i '/session(\s+)required(\s+)pam_loginuid/{s|^|#|};p'  /etc/pam.d/login
