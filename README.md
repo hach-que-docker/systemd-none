@@ -9,16 +9,12 @@ To run this image:
     
 This image is generally used as a base image for other Docker images.  You can build on this image by creating your own Dockerfiles.
 
-SSH Host Keys
-----------------
+SSH Access
+----------
 
-This image will generate SSH host keys on first run, and store them in /config.  For images derived from this one, this will ensure that the SSH host keys are kept in a /config/keycache folder (whereever this may be mapped on the host) so that the SSH host keys do not change between restarts.
+This image no longer provides SSH access.  Instead use `docker exec` to run commands in the container (originally `docker exec` was not available when the first versions of this image were made, so they provided SSHD running by default).
 
-If /config is not mapped in the container, then the SSH host keys will change each time a container is run from this image.
-    
-SSH / Login
---------------
+Starting Services
+-----------------
 
-**Username:** root
-
-**Password:** linux
+When deriving from this image, you can start services by placing executable shell scripts in `/etc/init.simple`.  To make the container monitor service processes (and exit if any of them unexpectedly terminate), place files in `/run/watch` with a single PID inside each file.

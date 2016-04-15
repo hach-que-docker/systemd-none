@@ -1,5 +1,0 @@
-#!/bin/bash
-
-# Run patch twice to cover off any zypper patches first.
-zypper --non-interactive patch
-zypper --non-interactive patch

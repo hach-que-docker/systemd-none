@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+set -x
+
+zypper --non-interactive ref
+zypper --non-interactive up --force-resolution
+zypper --non-interactive up --force-resolution
+
+rm -R /boot
+
+rm -R /usr/lib/systemd/system/* 2>/dev/null
+rm -R /usr/lib/systemd/system-generators/* 2>/dev/null
+rm -R /etc/systemd/system/* 2>/dev/null
+rm -R /etc/init.d/* 2>/dev/null
+
+sed -r -n -i '/session(\s+)required(\s+)pam_loginuid/{s|^|#|};p'  /etc/pam.d/login
+sed -r -n -i '/session(\s+)required(\s+)pam_loginuid/{s|^|#|};p'  /etc/pam.d/sshd
+
