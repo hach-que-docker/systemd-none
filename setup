@@ -3,7 +3,7 @@
 set -e
 set -x
 
-zypper --non-interactive ref
+zypper --non-interactive --gpg-auto-import-keys ref
 zypper --non-interactive up --force-resolution
 zypper --non-interactive up --force-resolution
 
